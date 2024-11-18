@@ -13,6 +13,9 @@ return new class() extends Migration {
             $table->foreignUuid('address_id')->nullable()->constrained('addresses')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
+
+            /* Ownership Tables */
+            $table->index('user_id');
         });
     }
 

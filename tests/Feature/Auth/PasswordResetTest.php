@@ -8,9 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
-/**
- * @small
- */
+/* Prueba el reinicio de contraseña */
 class PasswordResetTest extends TestCase {
     use RefreshDatabase;
 

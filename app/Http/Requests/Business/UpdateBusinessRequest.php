@@ -5,7 +5,6 @@ namespace App\Http\Requests\Business;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateBusinessRequest extends FormRequest {
-
     public function rules(): array {
         return [
             'business.name' => ['filled'],

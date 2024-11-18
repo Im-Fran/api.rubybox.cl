@@ -10,7 +10,7 @@ return [
             'business.destroy',
 
             'profile.update',
-//            'profile.delete',
+            'profile.delete',
         ],
         'admin' => [
             /* Admin Business */

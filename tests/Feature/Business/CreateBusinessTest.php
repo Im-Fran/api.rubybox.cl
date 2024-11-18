@@ -3,14 +3,12 @@
 namespace Tests\Feature\Business;
 
 use App\Models\Business\Address;
-use App\Models\Business\Business;
 use App\Models\User;
 use Database\Seeders\PermissionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateBusinessTest extends TestCase {
-
     use RefreshDatabase;
 
     private array $fakeData = [

@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model {
-    use HasFactory, HasUuids, SoftDeletes;
+    use HasFactory,
+        HasUuids,
+        SoftDeletes;
 
     protected $fillable = [
         'address_line_1',

@@ -8,7 +8,7 @@ use Database\Seeders\PermissionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class EditBusinessTest extends TestCase {
+class FetchBusinessTest extends TestCase {
     use RefreshDatabase;
 
     private array $fakeData = [
@@ -28,44 +28,32 @@ class EditBusinessTest extends TestCase {
         ],
     ];
 
-    public function test_user_can_edit_business() {
+    public function test_can_fetch_businesses() {
         $user = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
-        $user->assignRole('user');
+
         $address = Address::create($this->fakeData['address']);
         $business = $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
 
-        $response = $this->actingAs($user)->patchJson(route('business.update', [$business]), [
-            'business' => [
-                'name' => 'Mi Nuevo Negocio',
-            ],
-            'address' => [
-                'address_line_1' => 'Nueva Dirección',
-            ],
-        ]);
+        $response = $this->actingAs($user)->getJson(route('business.index'));
 
-        $response->assertStatus(200);
-        $response->assertJsonFragment(['name' => 'Mi Nuevo Negocio']);
+        $this->assertAuthenticated();
+        $response->assertOk();
+        $response->assertJsonFragment(['name' => $business->name]);
     }
 
-    public function test_user_cannot_edit_another_users_business() {
+    public function test_cannot_fetch_businesses_from_another_user() {
         $user = User::factory()->create();
         $anotherUser = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
-        $user->assignRole('user');
-        $anotherUser->assignRole('user');
+
         $address = Address::create($this->fakeData['address']);
-        $business = $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $anotherUser->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
 
-        $response = $this->actingAs($anotherUser)->patchJson(route('business.update', [$business]), [
-            'business' => [
-                'name' => 'Mi Nuevo Negocio',
-            ],
-            'address' => [
-                'address_line_1' => 'Nueva Dirección',
-            ],
-        ]);
+        $response = $this->actingAs($user)->getJson(route('business.index'));
 
-        $response->assertStatus(403);
+        $this->assertAuthenticated();
+        $response->assertOk();
+        $response->assertJsonMissing(['name' => $business->name]);
     }
 }
