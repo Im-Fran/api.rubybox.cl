@@ -10,17 +10,20 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Business extends Model implements CanBeOwner, Ownable {
     use HasFactory,
-        HasUuids,
         HasOwner,
+        HasUuids,
         SoftDeletes;
 
     protected string $ownerModel = User::class;
+
     protected string $ownerPrimaryKey = 'id';
+
     protected string $ownerForeignKey = 'user_id';
 
     protected $fillable = [
@@ -42,5 +45,9 @@ class Business extends Model implements CanBeOwner, Ownable {
 
     public function address(): HasOne {
         return $this->hasOne(Address::class);
+    }
+
+    public function categories(): HasMany {
+        return $this->hasMany(BusinessCategory::class);
     }
 }

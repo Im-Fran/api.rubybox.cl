@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail, CanBeOwner {
+class User extends Authenticatable implements CanBeOwner, MustVerifyEmail {
     use HasFactory,
         HasRoles,
         HasUuids,

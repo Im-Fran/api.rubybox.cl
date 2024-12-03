@@ -9,6 +9,11 @@ return [
             'business.update',
             'business.destroy',
 
+            'business.category.view',
+            'business.category.create',
+            'business.category.update',
+            'business.category.destroy',
+
             'profile.update',
             'profile.delete',
         ],

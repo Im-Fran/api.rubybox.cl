@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BusinessAssociatedProduct extends Model {
-    use //HasFactory,
+    use // HasFactory,
         HasUuids;
 
     protected function casts(): array {

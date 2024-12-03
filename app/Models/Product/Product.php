@@ -13,12 +13,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model implements Ownable {
     use HasFactory,
-        HasUuids,
         HasOwner,
+        HasUuids,
         SoftDeletes;
 
     protected string $ownerModel = Business::class;
+
     protected string $ownerPrimaryKey = 'id';
+
     protected string $ownerForeignKey = 'business_id';
 
     protected $fillable = [

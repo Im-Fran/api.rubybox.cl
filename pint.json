@@ -136,7 +136,7 @@
         "operator_linebreak": true,
         "ordered_imports": true,
         "ordered_interfaces": true,
-        "php_unit_size_class": true,
+        "php_unit_size_class": false,
         "phpdoc_add_missing_param_annotation": true,
         "phpdoc_align": true,
         "phpdoc_indent": true,
