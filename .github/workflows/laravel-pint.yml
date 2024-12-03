@@ -5,39 +5,22 @@ on:
     branches: [ 'dev' ]
 
 jobs:
-  clone-repo:
-    name: Clonar Repositorio
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-  setup-php:
-    name: Configurar PHP
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-  install-depends:
-    name: Instalar Dependencias
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    needs: [clone-repo,setup-php]
-    steps:
-      - uses: ramsey/composer-install@v3
-        with:
-          composer-options: '-q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist'
   laravel-pint:
     name: Laravel Pint
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    needs: [clone-repo,setup-php,install-depends]
     steps:
+      - name: Clonar Repositorio
+        uses: actions/checkout@v4
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - name: Instalar Dependencias
+        uses: ramsey/composer-install@v3
+        with:
+          composer-options: '-q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist'
       - name: Ejecutar Pint
         run: vendor/bin/pint
       - uses: stefanzweifel/git-auto-commit-action@v4
