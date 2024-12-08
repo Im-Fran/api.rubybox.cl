@@ -10,9 +10,11 @@ return new class() extends Migration {
             $table->uuid('id')->primary()->unique();
             $table->string('name');
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignUuid('address_id')->nullable()->constrained('addresses')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
+
+            /* Ownership Tables */
+            $table->index('user_id');
         });
     }
 

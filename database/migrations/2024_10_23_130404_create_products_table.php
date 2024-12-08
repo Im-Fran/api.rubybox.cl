@@ -16,6 +16,9 @@ return new class() extends Migration {
             $table->integer('estimated_product_duration')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            /* Ownership Tables */
+            $table->index('business_id');
         });
     }
 

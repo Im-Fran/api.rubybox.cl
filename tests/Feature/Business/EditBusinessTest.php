@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Business;
 
-use App\Models\Business\Address;
 use App\Models\User;
 use Database\Seeders\PermissionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -32,8 +31,8 @@ class EditBusinessTest extends TestCase {
         $user = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
         $user->assignRole('user');
-        $address = Address::create($this->fakeData['address']);
-        $business = $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $user->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
 
         $response = $this->actingAs($user)->patchJson(route('business.update', [$business]), [
             'business' => [
@@ -46,5 +45,26 @@ class EditBusinessTest extends TestCase {
 
         $response->assertStatus(200);
         $response->assertJsonFragment(['name' => 'Mi Nuevo Negocio']);
+    }
+
+    public function test_user_cannot_edit_another_users_business() {
+        $user = User::factory()->create();
+        $anotherUser = User::factory()->create();
+        $this->seed([PermissionsSeeder::class]);
+        $user->assignRole('user');
+        $anotherUser->assignRole('user');
+        $business = $user->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
+
+        $response = $this->actingAs($anotherUser)->patchJson(route('business.update', [$business]), [
+            'business' => [
+                'name' => 'Mi Nuevo Negocio',
+            ],
+            'address' => [
+                'address_line_1' => 'Nueva Dirección',
+            ],
+        ]);
+
+        $response->assertStatus(403);
     }
 }

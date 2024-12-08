@@ -9,9 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model {
-    use HasFactory, HasUuids, SoftDeletes;
+    use HasFactory,
+        HasUuids,
+        SoftDeletes;
 
     protected $fillable = [
+        'business_id',
         'address_line_1',
         'address_line_2',
         'street_reference',
@@ -23,6 +26,12 @@ class Address extends Model {
         'latitude',
         'longitude',
     ];
+
+    protected function casts(): array {
+        return [
+            'business_id' => 'string',
+        ];
+    }
 
     public function business(): BelongsTo {
         return $this->belongsTo(Business::class);

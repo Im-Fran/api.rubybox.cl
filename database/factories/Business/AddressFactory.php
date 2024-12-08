@@ -4,7 +4,6 @@ namespace Database\Factories\Business;
 
 use App\Models\Business\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 class AddressFactory extends Factory {
     protected $model = Address::class;

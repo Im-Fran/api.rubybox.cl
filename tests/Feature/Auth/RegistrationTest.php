@@ -5,9 +5,7 @@ namespace Tests\Feature\Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-/**
- * @small Prueba que los usuarios nuevos pueden registrarse
- */
+/* Prueba que los usuarios nuevos pueden registrarse */
 class RegistrationTest extends TestCase {
     use RefreshDatabase;
 

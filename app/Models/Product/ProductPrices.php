@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductPrices extends Model {
-    use HasFactory, HasUuids;
+    use // HasFactory,
+        HasUuids;
 
     protected function casts(): array {
         return [

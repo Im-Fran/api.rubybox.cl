@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
-/**
- * @small
- */
+/* Prueba para verificar el correo electrónico */
 class EmailVerificationTest extends TestCase {
     use RefreshDatabase;
 

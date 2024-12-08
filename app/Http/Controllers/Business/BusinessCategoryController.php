@@ -3,46 +3,46 @@
 namespace App\Http\Controllers\Business;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Business\Category\CreateBusinessCategoryRequest;
+use App\Http\Requests\Business\Category\UpdateBusinessCategoryRequest;
 use App\Http\Resources\Business\BusinessCategoryResource;
+use App\Models\Business\Business;
 use App\Models\Business\BusinessCategory;
-use Illuminate\Http\Request;
 
 class BusinessCategoryController extends Controller {
-    public function index() {
-        return BusinessCategoryResource::collection(BusinessCategory::all());
+    public function index(Business $business) {
+        if (!$business->isOwnedBy(auth()->user())) {
+            abort(403);
+        }
+
+        return BusinessCategoryResource::collection($business->categories);
     }
 
-    public function store(Request $request) {
-        $data = $request->validate([
-            'parent_id' => ['nullable'],
-            'business_id' => ['required'],
-            'name' => ['required'],
-            'description' => ['required'],
-        ]);
-
-        return new BusinessCategoryResource(BusinessCategory::create($data));
+    public function store(Business $business, CreateBusinessCategoryRequest $request) {
+        return new BusinessCategoryResource($business->categories()->create($request->validated()));
     }
 
-    public function show(BusinessCategory $businessCategory) {
-        return new BusinessCategoryResource($businessCategory);
+    public function show(Business $business, BusinessCategory $category) {
+        if (!$business->isOwnedBy(auth()->user())) {
+            abort(403);
+        }
+
+        return new BusinessCategoryResource($category);
     }
 
-    public function update(Request $request, BusinessCategory $businessCategory) {
-        $data = $request->validate([
-            'parent_id' => ['nullable'],
-            'business_id' => ['required'],
-            'name' => ['required'],
-            'description' => ['required'],
-        ]);
+    public function update(Business $business, BusinessCategory $category, UpdateBusinessCategoryRequest $request) {
+        $category->update($request->validated());
 
-        $businessCategory->update($data);
-
-        return new BusinessCategoryResource($businessCategory);
+        return new BusinessCategoryResource($category);
     }
 
-    public function destroy(BusinessCategory $businessCategory) {
-        $businessCategory->delete();
+    public function destroy(Business $business, BusinessCategory $category) {
+        if (!$business->isOwnedBy(auth()->user())) {
+            abort(403);
+        }
 
-        return response()->json();
+        $category->delete();
+
+        return response()->noContent();
     }
 }
