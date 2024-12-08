@@ -25,16 +25,16 @@ Route::prefix('business')->middleware(['auth'])->group(function() {
             });
         });
 
-        Route::prefix('associated-products')->group(function(){
+        Route::prefix('associated-products')->group(function() {
             Route::get('/', [BusinessAssociatedProductController::class, 'index'])->middleware(['permission:business.associated-products.view'])->name('business.associated-products.index');
             Route::post('/', [BusinessAssociatedProductController::class, 'store'])->middleware(['permission:business.associated-products.create'])->name('business.associated-products.store');
 
-            Route::prefix('{associatedProduct}')->group(function(){
+            Route::prefix('{associatedProduct}')->group(function() {
                 Route::get('/', [BusinessAssociatedProductController::class, 'show'])->middleware(['permission:business.associated-products.view'])->name('business.associated-products.show');
                 Route::patch('/', [BusinessAssociatedProductController::class, 'update'])->middleware(['permission:business.associated-products.update'])->name('business.associated-products.update');
                 Route::delete('/', [BusinessAssociatedProductController::class, 'destroy'])->middleware(['permission:business.associated-products.destroy'])->name('business.associated-products.destroy');
 
-                Route::prefix('categories')->group(function(){
+                Route::prefix('categories')->group(function() {
                     Route::get('/', [BusinessAssociatedProductCategoryController::class, 'index'])->middleware(['permission:business.associated-products.categories.view'])->name('business.associated-products.categories.index');
                     Route::post('/', [BusinessAssociatedProductCategoryController::class, 'store'])->middleware(['permission:business.associated-products.categories.create'])->name('business.associated-products.categories.store');
                     Route::delete('/{category}', [BusinessAssociatedProductCategoryController::class, 'destroy'])->middleware(['permission:business.associated-products.categories.destroy'])->name('business.associated-products.categories.destroy');

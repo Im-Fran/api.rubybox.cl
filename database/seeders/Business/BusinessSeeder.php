@@ -12,7 +12,7 @@ class BusinessSeeder extends Seeder {
     public function run(): void {
         User::inRandomOrder()->take(5)->each(fn (User $it) => tap(Business::factory()->create([
             'user_id' => $it->id,
-        ]), function(Business $business){
+        ]), function(Business $business) {
             $business->categories()->createMany(BusinessCategory::factory(count: 5)->make()->toArray());
             $business->address()->create(Address::factory()->make()->toArray());
         }));
