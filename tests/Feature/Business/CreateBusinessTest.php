@@ -43,8 +43,8 @@ class CreateBusinessTest extends TestCase {
     public function test_cannot_create_more_businesses() {
         $user = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
-        $address = Address::create($this->fakeData['address']);
-        $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $user->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
         $user->givePermissionTo('business.create');
 
         $response = $this->actingAs($user)->postJson(route('business.store'), $this->fakeData);

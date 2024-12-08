@@ -32,8 +32,8 @@ class EditBusinessTest extends TestCase {
         $user = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
         $user->assignRole('user');
-        $address = Address::create($this->fakeData['address']);
-        $business = $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $user->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
 
         $response = $this->actingAs($user)->patchJson(route('business.update', [$business]), [
             'business' => [
@@ -54,8 +54,8 @@ class EditBusinessTest extends TestCase {
         $this->seed([PermissionsSeeder::class]);
         $user->assignRole('user');
         $anotherUser->assignRole('user');
-        $address = Address::create($this->fakeData['address']);
-        $business = $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $user->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
 
         $response = $this->actingAs($anotherUser)->patchJson(route('business.update', [$business]), [
             'business' => [

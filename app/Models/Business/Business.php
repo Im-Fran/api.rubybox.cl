@@ -29,13 +29,11 @@ class Business extends Model implements CanBeOwner, Ownable {
     protected $fillable = [
         'name',
         'user_id',
-        'address_id',
     ];
 
     protected function casts(): array {
         return [
             'user_id' => 'string',
-            'address_id' => 'string',
         ];
     }
 

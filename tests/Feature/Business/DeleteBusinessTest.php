@@ -33,8 +33,8 @@ class DeleteBusinessTest extends TestCase {
     public function test_user_can_delete_business() {
         $user = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
-        $address = Address::create($this->fakeData['address']);
-        $business = $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $user->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
         $user->givePermissionTo('business.destroy');
 
         $response = $this->actingAs($user)->deleteJson(route('business.destroy', ['business' => $business->id]));
@@ -47,8 +47,8 @@ class DeleteBusinessTest extends TestCase {
     public function test_user_cannot_delete_business_from_another_user() {
         $user = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
-        $address = Address::create($this->fakeData['address']);
-        $business = $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $user->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
         $anotherUser = User::factory()->create();
         $anotherUser->givePermissionTo('business.destroy');
 
@@ -62,8 +62,8 @@ class DeleteBusinessTest extends TestCase {
     public function test_user_cannot_delete_business_without_permission() {
         $user = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
-        $address = Address::create($this->fakeData['address']);
-        $business = $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $user->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
 
         $response = $this->actingAs($user)->deleteJson(route('business.destroy', ['business' => $business->id]));
 

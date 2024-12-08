@@ -32,8 +32,8 @@ class FetchBusinessTest extends TestCase {
         $user = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
 
-        $address = Address::create($this->fakeData['address']);
-        $business = $user->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $user->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
 
         $response = $this->actingAs($user)->getJson(route('business.index'));
 
@@ -47,8 +47,8 @@ class FetchBusinessTest extends TestCase {
         $anotherUser = User::factory()->create();
         $this->seed([PermissionsSeeder::class]);
 
-        $address = Address::create($this->fakeData['address']);
-        $business = $anotherUser->businesses()->create($this->fakeData['business'] + ['address_id' => $address->id]);
+        $business = $anotherUser->businesses()->create($this->fakeData['business']);
+        $business->address()->create($this->fakeData['address']);
 
         $response = $this->actingAs($user)->getJson(route('business.index'));
 

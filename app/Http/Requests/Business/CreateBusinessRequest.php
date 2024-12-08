@@ -21,8 +21,4 @@ class CreateBusinessRequest extends FormRequest {
             'address.longitude' => ['nullable'],
         ];
     }
-
-    public function authorize(): bool {
-        return auth()->check();
-    }
 }

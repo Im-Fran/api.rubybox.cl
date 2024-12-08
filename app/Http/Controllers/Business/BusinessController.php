@@ -9,13 +9,17 @@ use App\Http\Resources\Business\BusinessResource;
 use App\Models\Business\Address;
 use App\Models\Business\Business;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class BusinessController extends Controller {
     /* Solicita los negocios del usuario */
     public function index(Request $request) {
         $user = $request->user();
 
-        return BusinessResource::collection($user->businesses);
+        return QueryBuilder::for($user->businesses())
+            ->allowedFilters(['name', 'description'])
+            ->allowedSorts(['name', 'created_at', 'updated_at'])
+            ->jsonPaginate();
     }
 
     /* Crea un nuevo negocio. Por ahora solo puede ser uno por usuario. */
@@ -29,11 +33,9 @@ class BusinessController extends Controller {
 
         $data = $request->validated();
 
-        $address = Address::create($data['address']);
-        $business = Business::create(array_merge($data['business'], [
-            'address_id' => $address->id,
+        $business = tap(Business::create(array_merge($data['business'], [
             'user_id' => $user->id,
-        ]));
+        ])), fn(Business $business) => $business->address()->create($data['address']));
 
         return new BusinessResource($business);
     }

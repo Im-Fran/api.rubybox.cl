@@ -13,7 +13,6 @@ class BusinessResource extends JsonResource {
             'id' => $this->id,
             'name' => $this->name,
             'user_id' => $this->user_id,
-            'address_id' => $this->address_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

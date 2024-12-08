@@ -7,22 +7,18 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateBusinessRequest extends FormRequest {
     public function rules(): array {
         return [
-            'business.name' => ['filled'],
+            'business.name' => ['sometimes', 'required'],
 
-            'address.line_1' => ['filled'],
-            'address.line_2' => ['nullable'],
-            'address.street_reference' => ['filled'],
-            'address.country' => ['filled'],
-            'address.province' => ['filled'],
-            'address.city' => ['filled'],
-            'address.region' => ['filled'],
-            'address.postal_code' => ['filled'],
-            'address.latitude' => ['filled'],
-            'address.longitude' => ['filled'],
+            'address.address_line_1' => ['sometimes', 'required'],
+            'address.address_line_2' => ['nullable'],
+            'address.street_reference' => ['sometimes', 'required'],
+            'address.country' => ['sometimes', 'required'],
+            'address.province' => ['sometimes', 'required'],
+            'address.city' => ['sometimes', 'required'],
+            'address.region' => ['nullable'],
+            'address.postal_code' => ['sometimes', 'required'],
+            'address.latitude' => ['nullable'],
+            'address.longitude' => ['nullable'],
         ];
-    }
-
-    public function authorize(): bool {
-        return auth()->check();
     }
 }
