@@ -8,12 +8,10 @@ use App\Http\Requests\Business\AssociatedProduct\UpdateAssociatedProductRequest;
 use App\Http\Resources\Product\BusinessAssociatedProductResource;
 use App\Models\Business\Business;
 use App\Models\Product\BusinessAssociatedProduct;
-use Illuminate\Http\Request;
 
 class BusinessAssociatedProductController extends Controller {
-
     public function index(Business $business) {
-        if(!$business->isOwnedBy(auth()->user())) {
+        if (!$business->isOwnedBy(auth()->user())) {
             abort(403);
         }
 
@@ -34,6 +32,7 @@ class BusinessAssociatedProductController extends Controller {
 
     public function update(Business $business, BusinessAssociatedProduct $businessAssociatedProduct, UpdateAssociatedProductRequest $request) {
         $businessAssociatedProduct->update($request->validated());
+
         return new BusinessAssociatedProductResource($businessAssociatedProduct);
     }
 

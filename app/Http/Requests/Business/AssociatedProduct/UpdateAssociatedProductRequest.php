@@ -5,7 +5,6 @@ namespace App\Http\Requests\Business\AssociatedProduct;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAssociatedProductRequest extends FormRequest {
-
     public function rules(): array {
         return [
             'business_id' => ['required'],

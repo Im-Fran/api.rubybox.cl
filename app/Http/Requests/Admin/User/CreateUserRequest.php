@@ -4,10 +4,8 @@ namespace App\Http\Requests\Admin\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends FormRequest
-{
-    public function rules(): array
-    {
+class CreateUserRequest extends FormRequest {
+    public function rules(): array {
         return [
             'name' => ['required'],
             'email' => ['required', 'email'],
@@ -15,8 +13,7 @@ class CreateUserRequest extends FormRequest
         ];
     }
 
-    public function attributes(): array
-    {
+    public function attributes(): array {
         return [
             'name' => __('Name'),
             'email' => __('Email'),

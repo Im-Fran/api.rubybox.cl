@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Business\CreateBusinessRequest;
 use App\Http\Requests\Business\UpdateBusinessRequest;
 use App\Http\Resources\Business\BusinessResource;
-use App\Models\Business\Address;
 use App\Models\Business\Business;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -35,7 +34,7 @@ class BusinessController extends Controller {
 
         $business = tap(Business::create(array_merge($data['business'], [
             'user_id' => $user->id,
-        ])), fn(Business $business) => $business->address()->create($data['address']));
+        ])), fn (Business $business) => $business->address()->create($data['address']));
 
         return new BusinessResource($business);
     }
