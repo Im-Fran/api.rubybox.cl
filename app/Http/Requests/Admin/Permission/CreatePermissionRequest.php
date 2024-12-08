@@ -10,4 +10,10 @@ class CreatePermissionRequest extends FormRequest {
             'name' => ['required'],
         ];
     }
+
+    public function attributes(): array {
+        return [
+            'name' => __('Name'),
+        ];
+    }
 }

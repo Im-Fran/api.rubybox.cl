@@ -18,6 +18,13 @@ class LoginRequest extends FormRequest {
         ];
     }
 
+    public function attributes() {
+        return [
+            'email' => __('Email'),
+            'password' => __('Password'),
+        ];
+    }
+
     public function authenticate(): void {
         $this->ensureIsNotRateLimited();
 

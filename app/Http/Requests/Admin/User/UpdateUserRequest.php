@@ -12,4 +12,12 @@ class UpdateUserRequest extends FormRequest {
             'password' => ['sometimes', 'required', 'min:8'],
         ];
     }
+
+    public function attributes(): array {
+        return [
+            'name' => __('Name'),
+            'email' => __('Email'),
+            'password' => __('Password'),
+        ];
+    }
 }

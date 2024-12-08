@@ -13,6 +13,14 @@ class UpdateBusinessCategoryRequest extends FormRequest {
         ];
     }
 
+    public function attributes(): array {
+        return [
+            'parent_id' => __('Parent Category'),
+            'name' => __('Name'),
+            'description' => __('Description'),
+        ];
+    }
+
     public function authorize(): bool {
         return $this->business->isOwnedBy(auth()->user());
     }

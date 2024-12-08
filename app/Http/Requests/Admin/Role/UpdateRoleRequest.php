@@ -10,4 +10,10 @@ class UpdateRoleRequest extends FormRequest {
             'name' => ['sometimes', 'required'],
         ];
     }
+
+    public function attributes(): array {
+        return [
+            'name' => __('Name'),
+        ];
+    }
 }

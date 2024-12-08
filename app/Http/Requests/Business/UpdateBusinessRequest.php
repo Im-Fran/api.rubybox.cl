@@ -21,4 +21,21 @@ class UpdateBusinessRequest extends FormRequest {
             'address.longitude' => ['nullable'],
         ];
     }
+
+    public function attributes(): array {
+        return [
+            'business.name' => __('Name'),
+
+            'address.address_line_1' => __('Address Line 1'),
+            'address.address_line_2' => __('Address Line 2'),
+            'address.street_reference' => __('Street Reference'),
+            'address.country' => __('Country'),
+            'address.province' => __('Province'),
+            'address.city' => __('City'),
+            'address.region' => __('Region'),
+            'address.postal_code' => __('Postal Code'),
+            'address.latitude' => __('Latitude'),
+            'address.longitude' => __('Longitude'),
+        ];
+    }
 }

@@ -14,6 +14,14 @@ class UpdateAssociatedProductRequest extends FormRequest {
         ];
     }
 
+    public function attributes(): array {
+        return [
+            'business_id' => __('Business'),
+            'category_id' => __('Category'),
+            'product_id' => __('Product'),
+        ];
+    }
+
     public function authorize(): bool {
         return $this->business->isOwnedBy(auth()->user());
     }

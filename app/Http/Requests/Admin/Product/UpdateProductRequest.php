@@ -14,4 +14,14 @@ class UpdateProductRequest extends FormRequest {
             'estimated_product_duration' => ['sometimes', 'required'],
         ];
     }
+
+    public function attributes(): array {
+        return [
+            'name' => __('Name'),
+            'barcode' => __('Barcode'),
+            'description' => __('Description'),
+            'bill_name' => __('Bill Name'),
+            'estimated_product_duration' => __('Estimated Product Duration'),
+        ];
+    }
 }
