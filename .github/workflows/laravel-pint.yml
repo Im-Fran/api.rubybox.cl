@@ -23,10 +23,16 @@ jobs:
           composer-options: '-q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist'
       - name: Ejecutar Pint
         run: vendor/bin/pint
+      - name: Importar Llaves GPG
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.LARAVEL_PINT_GPG_PRIV }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: ${{ github.head_ref }}
           commit_message: 'lint: aplicados reparaciones de pint ✨'
-          commit_user_name: 'Laravel Pint'
-          commit_user_email: 'github-actions@franciscosolis.cl'
-          commit_author: 'Laravel Pint <github-actions@franciscosolis.cl>'
+          commit_user_name: 'Francisco Solis'
+          commit_user_email: '30329003+Im-Fran@users.noreply.github.com'
+          commit_author: 'Francisco Solis <30329003+Im-Fran@users.noreply.github.com>'
