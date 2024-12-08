@@ -11,9 +11,7 @@ use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class BusinessController extends Controller {
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         return QueryBuilder::for(Business::class)
             ->allowedFilters(['name', 'description'])
             ->allowedSorts(['name', 'created_at', 'updated_at'])
