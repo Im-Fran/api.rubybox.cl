@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 
-Route::prefix('admin')->middleware(['auth', 'permission:admin.dashboard'])->group(function() {
+Route::prefix('admin')->middleware(['auth:sanctum', 'permission:admin.dashboard'])->group(function() {
     Route::get('/', [DashboardController::class, 'index'])->middleware(['permission:admin.dashboard'])->name('admin.dashboard.index');
 
     Route::prefix('users')->group(function() {

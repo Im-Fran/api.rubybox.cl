@@ -17,9 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->api(prepend: [
+        /*$middleware->api(prepend: [
             EnsureFrontendRequestsAreStateful::class,
-        ]);
+        ]);*/
+        $middleware->statefulApi();
 
         $middleware->alias([
             'verified' => EnsureEmailIsVerified::class,

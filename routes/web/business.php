@@ -5,7 +5,7 @@ use App\Http\Controllers\Business\BusinessController;
 use App\Http\Controllers\Product\BusinessAssociatedProductCategoryController;
 use App\Http\Controllers\Product\BusinessAssociatedProductController;
 
-Route::prefix('business')->middleware(['auth'])->group(function() {
+Route::prefix('business')->middleware(['auth:sanctum'])->group(function() {
     Route::get('/', [BusinessController::class, 'index'])->name('business.index');
     Route::post('/', [BusinessController::class, 'store'])->middleware(['permission:business.create'])->name('business.store');
 
