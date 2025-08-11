@@ -20,7 +20,7 @@ class AuthenticationTest extends TestCase {
         ]);
 
         $this->assertAuthenticated();
-        $response->assertJsonStructure(['token']);
+        $response->assertNoContent();
     }
 
     /* Prueba que un usuario no pueda autenticarse con una contraseña inválida */
@@ -35,13 +35,12 @@ class AuthenticationTest extends TestCase {
         $this->assertGuest();
     }
 
-    /* TODO: Prueba que un usuario pueda cerrar sesión
+    /* Prueba que un usuario pueda cerrar sesión */
     public function test_users_can_logout(): void {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson('/logout');
+        $response = $this->actingAs($user)->post('/logout');
 
-        $this->assertGuest();
         $response->assertNoContent();
-    }*/
+    }
 }

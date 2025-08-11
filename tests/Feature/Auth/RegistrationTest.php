@@ -17,6 +17,7 @@ class RegistrationTest extends TestCase {
             'password_confirmation' => 'password',
         ]);
 
-        $response->assertJsonStructure(['token']);
+        $response->assertNoContent();
+        $this->assertAuthenticated();
     }
 }
